@@ -148,7 +148,7 @@ function findDeadPerson(dict) {
     var maxID = "";
     var maxCount = 0;
 
-    for (key in dict) { // TODO: Does this work?
+    for (var i = 0; i < dict.length; i++) {
 	if (dict[key] > maxCount) {
 	    maxID = key;
 	    maxCount = dict[key];
@@ -244,9 +244,11 @@ function changeAVStatusForNewTime(newTime) {
 	villagerEnable = false;
 
     gapi.hangout.av.setMicrophoneMute(!villagerEnable);
-    for (participantID in gapi.hangout.getEnabledParticipants()) {
-	gapi.hangout.av.setParticipantAudioLevel(participantID.person.id, villagerEnable? 1 : 0);
-	gapi.hangout.av.setParticipantVisible(participantID, !villagerEnable);
+    var participantList = gapi.hangout.getEnabledParticipants();
+    for (var i = 0; i < participantList.length; i++) {
+	var participant = participantList[i];
+	gapi.hangout.av.setParticipantAudioLevel(participant.person.id, villagerEnable? 1 : 0);
+	gapi.hangout.av.setParticipantVisible(participant.person.id, !villagerEnable);
     }
         
 }
@@ -313,7 +315,7 @@ function voteForUser() {
 	newVoteCount = 1;
     }
     console.log("New vote count: ", newVoteCount);
-    alert("newvotecount = " + newVoteCount);
+    alert("newvotecount = " + newVoteCount)
     
     /////////////////////////////////////////////////
     // Push the dead list if necessary
