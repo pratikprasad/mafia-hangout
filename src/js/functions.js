@@ -61,7 +61,7 @@ function getAlive() {
     var name_map = []
 
     var participants = getAll();
-    //var map = getNameToIDMap();
+    var map = getNameToIDMap();
     var deadList = getDeadList();
     var aliveList = [];
 
@@ -304,7 +304,7 @@ function voteForUser() {
 	votesNeeded = getAlive();
     }
 
-    /*
+    
 
     if (_state[voteCountKey])
 	newVoteCount = _state[voteCountKey] + 1;
@@ -337,7 +337,7 @@ function voteForUser() {
     
     console.log("New vote count submitted");
     // Post method cleanup
-    //stopTimer();*/
+    //stopTimer();
 }
 
 
