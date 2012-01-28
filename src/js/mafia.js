@@ -2,8 +2,7 @@ var state_ = null;
 var participants_ = null;
 
 var contentDiv = document.getElementById('content_div');
-var participantsDiv = document.getElementById('participants_div');
-
+var participantsDiv = document.getElementById("participants_div");
 // Note that if you click the button several times in succession,
 // if the state update hasn't gone through, it will submit the same
 // delta again.  The hangout data state only remembers the most-recent
