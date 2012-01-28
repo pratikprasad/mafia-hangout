@@ -312,7 +312,7 @@ function startClick() {
     var putURL = globalURL + "newGame/" + gameIDKey + "/" + getAll().length;
 
     $.ajax({
-	type: 'PUT',
+	type: 'GET',
 	url: putURL,
 	context: document.body,
 	success: function(){
