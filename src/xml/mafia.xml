@@ -6,6 +6,9 @@
   <Content type="html">
     <![CDATA[    
 
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js">
+        </script>
+
         <script type="text/javascript" src="//hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=0.1"></script>
 
 	<script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/stringify.js">
@@ -17,8 +20,6 @@
         <script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/mafia.js">
 	</script>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js">
-        </script>
 
 	<div id="playerRole"/>
 	<select id="voteBox">
