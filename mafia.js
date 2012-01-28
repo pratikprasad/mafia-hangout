@@ -7,8 +7,8 @@
 <div id="participants_div" style="height: 50px;"></div>
     <script type="text/javascript">
 
-	var contentDiv = document.getElementById('content_div');
-	var participantsDiv = document.getElementById('participants_div');
+       var contentDiv = document.getElementById('content_div');
+       var participantsDiv = document.getElementById('participants_div');
 
        // Note that if you click the button several times in succession,
        // if the state update hasn't gone through, it will submit the same
