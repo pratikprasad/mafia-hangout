@@ -8,10 +8,16 @@ class Mafia < Sinatra::Base
   end
 
   put "/newGame/:gameID/:numPlayers" do
-    "adfadsf"
+    "adfadsfgit"
   end
 
   get "/getRole/:gameID/:playerID" do 
+
+  end
+
+  put "/:gameID/decrement"
+    gameID%21
+  end
 
   run! if app_file == $0
 end
