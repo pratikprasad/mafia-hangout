@@ -328,7 +328,6 @@ function updateSelectionBox() {
 
     for (var i = 0; i < participantsArray.length; i++) {
 	var participant = participantsArray[i];
-	console.log("iterating through participant: ", participant);
 	participantList += "<option value='" + participant + "'>" + participant + "</option>";
     }
     participantList += "</select>";
