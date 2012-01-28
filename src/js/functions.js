@@ -387,7 +387,7 @@ function startClick() {
 	console.log("Successful new game response from server");
 	    if (getGameID() == null) {
 		console.log("Starting new game with game ID: ", newGameID);
-		gapi.hangout.data.submitDelta( { gameIDKey : newGameID
+		gapi.hangout.data.submitDelta( { "gameID" : newGameID
 					       });				     
 
 	    } else {
