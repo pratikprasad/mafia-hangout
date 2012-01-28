@@ -8,21 +8,14 @@
 	<script src="http://sharedspacesgadgets.appspot.com/static/hangout.js">
 	</script>
 
-	Hello, Hangout!
+	<script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/stringify.js">
+	</script>
 
-	<div id="content_div" style="height: 50px;"></div>
-	<div id="participants_div" style="height: 50px;"></div>
-
-		<script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/stringify.js">
-		</script>
-
-	<input type=button value="Click Me!" id="butCount" onClick="buttonClicked()">
-	<input type=button value="Reset" id="butReset" onClick="resetCounter()">
-	
-	<br/>
 	<select id="voteBox">
 		<option value="1">Value 1</option>
 	</select>
+
+	<input type=button value="Vote" id="butReset" onClick="inputVote()">
     ]]>
   </Content>
 </Module>
