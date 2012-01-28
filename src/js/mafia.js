@@ -65,9 +65,9 @@ function init() {
 		gapi.hangout.onEnabledParticipantsChanged.add(participantsUpdated);
 		
 		gapi.hangout.onApiReady.remove(initHangout);
-		if (!_state) {
-		    _state = gapi.hangout.data.getState();
-		}
+		_state = null;
+		_state = gapi.hangout.data.getState();
+		
 	    }
 	};
 	
