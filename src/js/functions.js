@@ -295,7 +295,7 @@ function voteForUser(participantName) {
     if (_state[voteCountKey])
 	newVoteCount = _state[voteCountKey] + 1;
     else
-	newVoteCount = 0;
+	newVoteCount = 1;
     console.log("New vote count: ", newVoteCount);
 
     /////////////////////////////////////////////////
