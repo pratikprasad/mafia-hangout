@@ -30,7 +30,8 @@ function stateUpdated(delta, metadata) {
    }
 }
 
-function participantsUpdated(participantsArray) {
+function participantsUpdated() {
+    var participantsArray = getAll();
    console.log("participants: " + participantsArray);
    participantList = "<ul \>";
    for (participant in participantsArray) {

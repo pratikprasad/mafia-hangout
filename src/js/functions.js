@@ -41,8 +41,12 @@ function getDeadList() {
 }
 
 function getAll() {
-    //return gapi.hangout.getEnabledParticipants();
-    return ["1", "2", "3", "4", "5", "6"];
+    var displayNameArray = [];
+    var list = gapi.hangout.getEnabledParticipants();
+    for (participant in list) {
+	displayNameArray.push(participant.person.displayName);
+    }
+    return displayNameArray;
 }
 
 function getVotingList() {
