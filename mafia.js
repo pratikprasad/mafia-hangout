@@ -48,10 +48,13 @@
        function init() {
        
        
-     console.log("init");
+	   console.log("init");
+	   
+	   gapi.hangout.data.addStateChangeListener(stateChanged);
+	   gapi.hangout.data.addStateChangeListener(stateUpdated);
+	   gapi.hangout.addParticipantsListener(participantsUpdated);
 
-     gapi.hangout.data.addStateChangeListener(stateUpdated);
-     gapi.hangout.addParticipantsListener(participantsUpdated);
+	   
        }
        
        // Note that the hangouts object is not set up until the gadget loads
