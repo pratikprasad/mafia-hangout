@@ -15,26 +15,68 @@ var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
 
+// TODO: Take out all junk calls
+
+////////////////////
+// Getter methods  
+////////////////////
+
+function getGameID() {
+    //return gapi.hangout.data.getState()[gameIDKey];
+    return "junk";
+}
+
+function getParticipantID() {
+    //return gapi.hangout.getParticipantId();
+    return "1";
+}
+
+function getDeadList() {
+    return ["1", "2"];
+    //return gapi.hangout.data.getState()[deadListKey];
+}
+
+function getAll() {
+    //return gapi.hangout.getEnabledParticipants();
+    return ["1", "2", "3", "4", "5", "6"];
+}
+
+function getVotingList() {
+    return {"1": 1, "2", 1};
+    //return JSON.Parse(gapi.hangout.data.getState()[votingListKey]);
+}
+
+function getAliveList() {
+    masterList = getAll();
+    deadList = getDeadList();
+    for(var i = 0; i < myArray.length; i++){             
+	if(masterList[i] in deadList){ 
+            masterList.splice(i,1);    
+	}
+    }
+    return masterList;
+}
+
 /** 
  Small wrapper function to get the number of mafia in the game, based on the algorithm for how many mafia should be spawned
  @return Returns the number of mafia members in this game.
 */
 function getNumberOfMafia() {
-    var numParticipants = gapi.hangout.getEnabledParticipants().length;
+    var numParticipants = getAll().length;
     var numMafia = Math.floor(numParticipants / 3);
     return numMafia;
 }
 
 /**
- Performs an AJAX request to get the number of live mafia from the server.
+ Performs an AJAX request to get the number of live mafia from the server. Modifies the global state.
 */
-function getNumberOfLifeMafia() {
-    var gameID = gapi.hangout.data.getState()[gameIDKey];
-    var getURL = globalURL + "/" + gameID + "/numMafia";
-    $.post(getURL,
+function getNumberOfLiveMafia() {
+    var gameID = getGameID();
+    var getURL = globalURL + "numMafia/" + junk;
+    $.get(getURL,
 	   function(data) {
 	       console.log("Received number of live mafia:", data);
-	       liveMafia = data;
+	       liveMafia = parseInt(data);
 	   });
 }
 
@@ -58,6 +100,9 @@ function findDeadPerson(dict) {
 }
 
 
+
+
+
 ////////////////////////////////
 // PRE-ROUND STATE CLEANUP
 ////////////////////////////////
@@ -68,18 +113,21 @@ function findDeadPerson(dict) {
  @param newTime a string containing the new time, either "Day" or "Night"
 */
 function changeTime(newTime) {
+    if (isDead)
+	return;
     if (participantRole == "Villager") {
 	changeAVStatusForNewTime(newTime);
 	if (newTime == "Day")
 	    timeout = setTimeout("voteForSelfToDie()", 60000);
     }
+    getNumberOfLiveMafia();
 }
 
 /**
  Timeout function. The user votes to kill themselves.
 */
 function voteForSelfToDie() {
-    voteForUser(gapi.hangout.getParticipantId());
+    voteForUser(getParticipantID());
     stopTimer();
 }
 
@@ -90,11 +138,18 @@ function stopTimer() {
     clearTimeout(timeout);
 }
 
-
+/** 
+ Kills this client. Sets isDead to true, and if this client is a mafia member, informs the server to decrement the number of mafia.
+*/
 function die() {
     isDead = true;
     if (participantRole == "Mafia") {
-	// TODO: Tell the server we're dead
+	var gameID = getGameID();
+	var putURL = globalURL + "decrement/" + gameID;
+	$.get(putURL,
+	   function() {
+	       console.log("Decremented number of live mafia");
+	   });
     }
 }
 
@@ -103,7 +158,7 @@ function die() {
   @param newTime A string containing the new time, either "Day" or "Night"
 */
 function changeAVStatusForNewTime(newTime) {
-    console.log("Changing status for participant: ", gapi.hangout.getParticipantId(), "with new time: ", newTime);
+    console.log("Changing status for participant: ", getParticipantID(), "with new time: ", newTime);
     var villagerEnable;
     if (newTime == "Day")
 	villagerEnable = true;
@@ -111,7 +166,6 @@ function changeAVStatusForNewTime(newTime) {
 	villagerEnable = false;
 
     gapi.hangout.av.setMicrophoneMute(!villagerEnable);
-    gapi.hangout.av.setCameraMute(!villagerEnable);
     for (participantID in gapi.hangout.getEnabledParticipants()) {
 	gapi.hangout.av.setParticipantAudioLevel(participantID, !villagerEnable);
 	gapi.hangout.av.setParticipantVisible(participantID, !villagerEnable);
@@ -119,23 +173,32 @@ function changeAVStatusForNewTime(newTime) {
         
 }
 
+//////////////////////////
+/// IN-ROUND FUNCTIONS
+/////////////////////////
+v
+
 /**
  Client-side function that votes for a participant to be killed. Meant for both mafia and villagers.
  @param participantID the participant ID to vote for.
 */
 function voteForUser(participantID) {
 
+    // sanity check
+    if (isDead)
+	return;
+
     // Locals
     var voteCountKey;
     var votesNeeded;
-    var deadList = gapi.hangout.data.getState()[deadListKey];
+    var deadList = getDeadList();
     var newVoteCount;
     var deadListStringified;
 
     //////////////////////////////////////////////////
     /// Update the voting list 
     /////////////////////////////////////////////////
-    var votingList = JSON.Parse(gapi.hangout.data.getState()[votingListKey]);
+    var votingList = getVotingList();
     if (participantID in votingList) { 
 	count = votingList[key];
 	votingList[key] = count + 1;
@@ -153,10 +216,10 @@ function voteForUser(participantID) {
 	    return;
 	} 
 	voteCountKey = nightVoteNumberKey;
-	votesNeeded = gapi.hangout.data.getState()[numberMafiaKey];	
+	votesNeeded = liveMafia;
     } else { // Daytime
 	voteCountKey = dayVoteNumberKey;
-	votesNeeded = gapi.hangout.getEnabledParticipants().length;
+	votesNeeded = getAll().length;
     }
     newVoteCount = gapi.hangout.data.getState()[voteCountKey] + 1;
 
@@ -164,7 +227,7 @@ function voteForUser(participantID) {
     // Push the dead list if necessary
     /////////////////////////////////////////////////
     if (newVoteCount == votesNeeded) {
-	console.log("Number of votes needed to kill reached by participant: ", gapi.hangout.getParticipantId(), " with vote number: ", newVoteCount);
+	console.log("Number of votes needed to kill reached by participant: ", getParticipantID(), " with vote number: ", newVoteCount);
 	var deadParticipant = findDeadPerson(votingList);
 	deadList.push(deadParticipant);
 	console.log("New dead list: ", deadList);
@@ -177,8 +240,11 @@ function voteForUser(participantID) {
     ///////////////////////////////////////
     /// Always update the new vote count 
     ///////////////////////////////////////
-    console.log("Participant: ", gapi.hangout.getParticipantId(), " pushing new vote count: ", newVoteVount);
+    console.log("Participant: ", getParticipantID(), " pushing new vote count: ", newVoteVount);
     gapi.hangout.data.submitDelta( { "voteCount" : newVoteCount,
 					   });				     
+    
+    // Post method cleanup
+    stopTimer();
 	   
 }
