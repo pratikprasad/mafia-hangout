@@ -391,21 +391,18 @@ function startClick() {
     console.log("startClick() called");
     var newGameID = getNewGameID();
     var putURL = globalURL + "newGame/" + newGameID + "/" + getAll().length;
-    jQuery.get(putURL, function(){
-	console.log("Successful new game response from server");
-	    if (getGameID() == null) {
-		console.log("Starting new game with game ID: ", newGameID);
-		gapi.hangout.data.submitDelta( { "gameID" : newGameID
-					       });				     
-
-	    } else {
-		console.log("Game already started with ID: ", getGameID());
-	    }
-    },
-	       function() {
+    $.ajax({
+	type: 'GET',
+	url: putURL,
+	success: function() {
 		   console.log("Starting new game with game ID: ", newGameID);
 		   gapi.hangout.data.submitDelta( { "gameID" : newGameID
-						  });				     
-
-	       });
+						  });
+	},
+	error: function() {
+		   console.log("Starting new game with game ID: ", newGameID);
+		   gapi.hangout.data.submitDelta( { "gameID" : newGameID
+						  });
+	},				     
+    });
 }
