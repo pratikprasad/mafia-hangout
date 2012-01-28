@@ -45,8 +45,7 @@ function voteForUser(participantID) {
     //////////////////////////////////////////////////
     /// Update the voting list 
     /////////////////////////////////////////////////
-    var votingList = gapi.hangout.data.getState()[votingListKey];
-    // TODO Unstringify this
+    var votingList = JSON.Parse(gapi.hangout.data.getState()[votingListKey]);
     if (participantID in votingList) { // TODO: Does this work?
 	count = votingList[key];
 	votingList[key] = count + 1;
@@ -78,7 +77,7 @@ function voteForUser(participantID) {
 	var deadParticipant = findDeadPerson(votingList);
 	deadList.push(deadParticipant);
 	newVoteCount = 0;
-	// TODO: Stringify the dead list
+	deadListStringified = JSON.stringify(deadList);
 	gapi.hangout.data.submitDelta( { "deadList": deadListStringified
 				       });
     }
