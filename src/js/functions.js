@@ -308,11 +308,12 @@ function voteForUser() {
     
 
     if (_state[voteCountKey]) {
-	newVoteCount = _state[voteCountKey] + 1;
+	newVoteCount = parseInt(_state[voteCountKey]) + 1;
     } else {
 	newVoteCount = 1;
     }
     console.log("New vote count: ", newVoteCount);
+    alert("newvotecount = " + newVoteCount);
     
     /////////////////////////////////////////////////
     // Push the dead list if necessary
