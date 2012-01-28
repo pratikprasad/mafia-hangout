@@ -281,7 +281,7 @@ function startClick() {
 
     $.ajax({
 	type: 'PUT',
-	url: "test.html",
+	url: putURL,
 	context: document.body,
 	success: function(){
 	    if (getGameID() != null) {
