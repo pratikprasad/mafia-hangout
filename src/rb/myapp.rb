@@ -11,12 +11,28 @@ class Mafia < Sinatra::Base
     "adfadsfgit"
   end
 
-  get "/getRole/:gameID/:playerID" do 
-
+  put "/addPlayer/:gameID/:playerID" do
+    "waynee?"
   end
 
-  put "/:gameID/decrement"
-    gameID%21
+  get "/getRole/:gameID/:playerID" do 
+    "waynee?"
+  end
+
+  put "/decrement/:gameID" do 
+    if !@rand then 
+      @rand = 100 
+    end
+    @rand -= 1
+    @rand
+  end
+
+  get "/numMafia/:gameID" do 
+    if @rand then 
+      @rand
+    else
+      42
+    end
   end
 
   run! if app_file == $0
