@@ -28,7 +28,7 @@ function getNewGameID() {
 
 function getGameID() {
     console.log("state: ", _state);
-    return _state[gameIDKey];
+    return _state["gameID"];
 }
 
 function getParticipantID() {
