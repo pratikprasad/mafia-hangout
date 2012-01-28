@@ -7,11 +7,11 @@ class Mafia < Sinatra::Base
     "learn your javascript"
   end
 
-  put "/newGame/:gameID/:numPlayers" do
+  get "/newGame/:gameID/:numPlayers" do
     "adfadsfgit"
   end
 
-  put "/addPlayer/:gameID/:playerID" do
+  get "/addPlayer/:gameID/:playerID" do
     "waynee?"
   end
 
@@ -19,7 +19,7 @@ class Mafia < Sinatra::Base
     "waynee?"
   end
 
-  put "/decrement/:gameID" do 
+  get "/decrement/:gameID" do 
     if !@rand then 
       @rand = 100 
     end
