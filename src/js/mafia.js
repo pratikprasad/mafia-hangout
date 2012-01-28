@@ -24,6 +24,7 @@ function buttonClicked() {
 
 // Whenever the shared data is updated, rewrite UI
 function stateUpdated(delta, metadata) {
+    console.log("state updated");
    if (!gapi.hangout.data.getState()['count']) {
        contentDiv.innerHTML = "The count is 0."
    } else {
