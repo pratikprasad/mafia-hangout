@@ -374,15 +374,21 @@ function stateChanged(delta, metadata) {
     // Update the selection box
     updateSelectionBox();
 
+    console.log("updated selection box");
     // Check if we're dead right now
     if (getParticipantID() in getDeadList()) {
 	console.log("user ", getParticipantID(), " died");
 	die(); 	// If so, time to die
 	// TODO: Call function to cross dead person off list on front-end
     }
+    console.log("determined dead status");
     
-    var voteCount = parseInt(_state[voteCountKey]);
-    
+    var voteCount = 0;
+    if (_state[voteCountKey]) {
+	voteCount = parseInt(_state[voteCountKey]);
+    } 
+
+    console.log("vote count: ", voteCount)
     if (voteCount == 0) { // switched from day to night or night to day
 	if (timeOfDay == "Day") {
 	    console.log("Switched from day to night");
