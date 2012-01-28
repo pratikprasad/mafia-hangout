@@ -9,11 +9,11 @@ var liveMafia = 0;
 // global variable keys
 var globalURL = "http://ec2-174-129-51-197.compute-1.amazonaws.com/";
 var deadListKey = "deadList";
-var dayVoteNumberKey = "dayVoteNumber";
-var nightVoteNumberKey = "nightVoteNumber";
+var voteCountKey = "voteCount";
 var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
+
 
 // TODO: Take out all junk calls
 
@@ -21,13 +21,17 @@ var votingListKey = "votingList";
 // Getter methods  
 ////////////////////
 
+function getNewGameID() {
+    return 1;
+}
+
 function getGameID() {
     //return gapi.hangout.data.getState()[gameIDKey];
     return "junk";
 }
 
 function getParticipantID() {
-    //return gapi.hangout.getParticipantId();
+    //return gapi.hangout.getparticipantId();
     return "1";
 }
 
@@ -47,7 +51,7 @@ function getVotingList() {
 
 function getAliveList() {
     masterList = getAll();
-    deadList = getDeadList();
+    Deadlist = getDeadList();
     for(var i = 0; i < myArray.length; i++){             
 	if(masterList[i] in deadList){ 
             masterList.splice(i,1);    
@@ -71,12 +75,12 @@ function getNumberOfMafia() {
 */
 function getNumberOfLiveMafia() {
     var gameID = getGameID();
-    var getURL = globalURL + "numMafia/" + junk;
-    $.get(getURL,
-	   function(data) {
-	       console.log("Received number of live mafia:", data);
-	       liveMafia = parseInt(data);
-	   });
+    var getURL = globalURL + "numMafia/" + getGameID();
+    $.get(getURL, function(data) {
+	console.log("Received data");
+	//console.log("Received number of live mafia:", data);
+	//liveMafia = parseInt(data);
+    });
 }
 
 /**
@@ -120,6 +124,7 @@ function changeTime(newTime) {
 	    timeout = setTimeout("voteForSelfToDie()", 60000);
     }
     getNumberOfLiveMafia();
+    timeOfDay = newTime;
 }
 
 /**
@@ -187,7 +192,6 @@ function voteForUser(participantID) {
 	return;
 
     // Locals
-    var voteCountKey;
     var votesNeeded;
     var deadList = getDeadList();
     var newVoteCount;
@@ -213,11 +217,9 @@ function voteForUser(participantID) {
 	    // TODO: Throw an error of some kind
 	    return;
 	} 
-	voteCountKey = nightVoteNumberKey;
 	votesNeeded = liveMafia;
     } else { // Daytime
-	voteCountKey = dayVoteNumberKey;
-	votesNeeded = getAll().length;
+	votesNeeded = getAll().length; // TODO: This needs to be # of live people, not all
     }
     newVoteCount = gapi.hangout.data.getState()[voteCountKey] + 1;
 
@@ -231,7 +233,7 @@ function voteForUser(participantID) {
 	console.log("New dead list: ", deadList);
 	newVoteCount = 0;
 	deadListStringified = JSON.stringify(deadList);
-	gapi.hangout.data.submitDelta( { "deadList": deadListStringified
+	gapi.hangout.data.submitDelta( { deadListKey: deadListStringified
 				       });
     }
 
@@ -239,10 +241,54 @@ function voteForUser(participantID) {
     /// Always update the new vote count 
     ///////////////////////////////////////
     console.log("Participant: ", getParticipantID(), " pushing new vote count: ", newVoteVount);
-    gapi.hangout.data.submitDelta( { "voteCount" : newVoteCount,
+    gapi.hangout.data.submitDelta( { voteCountKey : newVoteCount
 					   });				     
     
     // Post method cleanup
     stopTimer();
 	   
+
+}
+
+
+/////////////////////////////
+// Observer functions 
+////////////////////////////
+function stateChanged(delta, metadata) {
+    getNumberOfLiveMafia(); // Update number of life mafia
+    
+    // Check if we're dead right now
+    if (getParticipantID() in getDeadList()) {
+	die(); 	// If so, time to die
+	// TODO: Call function to cross dead person off list on front-end
+    }
+    
+    var voteCount = parseInt(gapi.hangout.data.getState()[voteCountKey]);
+    
+    if (voteCount == 0) { // switched from day to night or night to day
+	if (timeOfDay == "Day") {
+	    changeTime("Night");
+	} else {
+	    changeTime("Day");
+	}
+    }
+}
+
+
+function startClick() {
+    var gameIDKey = getNewGameID();
+    var putURL = globalURL + "newGame/" + gameIDKey + "/" + getAll().length;
+
+    $.ajax({
+	type: 'PUT',
+	url: "test.html",
+	context: document.body,
+	success: function(){
+	    if (getGameID() != null) {
+		gapi.hangout.data.submitDelta( { gameIDKey : newGameID
+					       });				     
+
+	    }
+	}
+    });
 }
