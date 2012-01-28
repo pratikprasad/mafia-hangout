@@ -54,8 +54,9 @@ function init() {
     console.log("init");
     if (gapi && gapi.hangout) {
 	var initHangout = function(apiInitEvent) {
-
+	    
 	    if (apiInitEvent.isApiReady) {
+		console.log("Adding observers");
 		gapi.hangout.data.onStateChanged.add(stateChanged);
 		gapi.hangout.data.onStateChanged.add(stateUpdated);
 		gapi.hangout.onEnabledParticipantsChanged.add(participantsUpdated);
