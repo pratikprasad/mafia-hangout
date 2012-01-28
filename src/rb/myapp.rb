@@ -19,20 +19,13 @@ class Mafia < Sinatra::Base
     "waynee?"
   end
 
+# to fix this shit
   get "/decrement/:gameID" do 
-    if !@rand then 
-      @rand = 100 
-    end
-    @rand -= 1
-    @rand
+    "asdf"
   end
 
   get "/numMafia/:gameID" do 
-    if @rand then 
-      @rand
-    else
-      42
-    end
+    "adsf"    
   end
 
   run! if app_file == $0
