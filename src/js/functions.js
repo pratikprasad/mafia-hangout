@@ -326,7 +326,6 @@ function voteForUser() {
     console.log("New vote count submitted");
     // Post method cleanup
     //stopTimer();
-    return false;
 }
 
 
