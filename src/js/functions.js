@@ -234,7 +234,7 @@ function changeAVStatusForNewTime(newTime) {
 
     gapi.hangout.av.setMicrophoneMute(!villagerEnable);
     for (participantID in gapi.hangout.getEnabledParticipants()) {
-	gapi.hangout.av.setParticipantAudioLevel(participantID, !villagerEnable);
+	gapi.hangout.av.setParticipantAudioLevel(participantID, villagerEnable? 1 : 0);
 	gapi.hangout.av.setParticipantVisible(participantID, !villagerEnable);
     }
         
