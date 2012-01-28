@@ -9,14 +9,14 @@ STORE = "/home/ec2-user/mafia-hangout/store"
 class Mafia < Sinatra::Base
   
   def getGame(id)
-    store = Pstore.new(STORE)
+    store = PStore.new(STORE)
     store.transaction{
       store[id]
     }
   end
 
   def setGame(id,game)
-    store = Pstore.new(STORE)
+    store = PStore.new(STORE)
     store.transaction{
       store[id] = game
     }
