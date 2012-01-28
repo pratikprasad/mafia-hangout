@@ -349,7 +349,7 @@ function voteForUser() {
     stringVoteCount = "" + newVoteCount;
     serializedVotingList = JSON.stringify(votingList);
     gapi.hangout.data.submitDelta( { "voteCount" : stringVoteCount,
-				     "votingList" : serializedVotingList};
+				     "votingList" : serializedVotingList}
 					   );				     
     
     console.log("New vote count submitted");
