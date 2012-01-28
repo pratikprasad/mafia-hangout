@@ -1,0 +1,12 @@
+Mafia:
+
+You live in a village that has been infiltrated by the mafia. Almost half of the villagers are mafia members.
+
+If you're a mafia member, your goal is to be kill all the villagers.
+If you're a villager or detective, your goal is to find all the mafia members before all the villagers die.
+
+The game goes in day and night cycles. 
+During the night, the mafia kills one of the villagers in their sleep.
+During the day, the entire village decides to choose one person to kill.
+
+If you're a detective, during the night, you can confirm or deny your suspicions about the members of the village.
