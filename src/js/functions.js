@@ -377,7 +377,7 @@ function stateChanged(delta, metadata) {
 function startClick() {
     console.log("startClick() called");
     var newGameID = getNewGameID();
-    var putURL = globalURL + "newGame/" + gameIDKey + "/" + getAll().length;
+    var putURL = globalURL + "newGame/" + newGameID + "/" + getAll().length;
     jQuery.get(putURL, function(){
 	console.log("Successful new game response from server");
 	    if (getGameID() == null) {
