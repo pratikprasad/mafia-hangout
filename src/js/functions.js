@@ -206,6 +206,7 @@ function stopTimer() {
 */
 function die() {
     isDead = true;
+    console.log("user is now dead");
     if (participantRole == "Mafia") {
 	var gameID = getGameID();
 	var putURL = globalURL + "decrement/" + gameID;
@@ -300,22 +301,24 @@ function voteForUser() {
 	} 
 	votesNeeded = liveMafia;
     } else { // Daytime
-	alert("here");
+	alert("daytime");
 	votesNeeded = getAlive();
     }
 
     
 
-    if (_state[voteCountKey])
+    if (_state[voteCountKey]) {
 	newVoteCount = _state[voteCountKey] + 1;
-    else
+    } else {
 	newVoteCount = 1;
+    }
     console.log("New vote count: ", newVoteCount);
     
     /////////////////////////////////////////////////
     // Push the dead list if necessary
     /////////////////////////////////////////////////
     if (newVoteCount == votesNeeded) {
+        alert("newVoteCount == votesNeeded");
 	console.log("Number of votes needed to kill reached by participant: ", getParticipantID(), " with vote number: ", newVoteCount);
 	var deadParticipant = findDeadPerson(votingList);
 	console.log("Dead participant: ", deadParticipant);
