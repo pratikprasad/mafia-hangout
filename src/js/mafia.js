@@ -52,6 +52,9 @@ function init() {
     gapi.hangout.data.addStateChangeListener(stateChanged); // client state change listener
     gapi.hangout.data.addStateChangeListener(stateUpdated);
     gapi.hangout.addParticipantsListener(participantsUpdated);
+
+    // Populate with ourselves initially
+    participantsUpdated();
 }
 
 // Note that the hangouts object is not set up until the gadget loads
