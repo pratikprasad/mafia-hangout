@@ -60,23 +60,10 @@ function init() {
 		gapi.hangout.onEnabledParticipantsChanged.add(participantsUpdated);
 		
 		console.log("Getting to initHangout 1");
-		if (!state_) {
-		    var state = gapi.hangout.data.getState();
-		    var metadata = gapi.hangout.data.getStateMetadata();
-		    if (state && metadata) {
-			updateLocalDataState(state, metadata);
-		    }
-		}
-		console.log("Getting to initHangout 2");
-		if (!participants_) {
-		    var initParticipants = gapi.hangout.getParticipants();
-		    if (initParticipants) {
-			participantsUpdated();
-		    }
-		}
-		console.log("Getting to initHangout 3");
+		
 		
 		gapi.hangout.onApiReady.remove(initHangout);
+		console.log("Finished in initHangout");
 	    }
 	};
 	
