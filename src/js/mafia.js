@@ -49,13 +49,53 @@ function participantsUpdated() {
 function init() {
     console.log("init");
     
-    gapi.hangout.data.addStateChangeListener(stateChanged); // client state change listener
-    gapi.hangout.data.addStateChangeListener(stateUpdated);
-    gapi.hangout.addParticipantsListener(participantsUpdated);
+    if (gapi && gapi.hangout) {
+	
+	gapi.hangout.data.addStateChangeListener(stateChanged); // client state change listener
+	gapi.hangout.data.addStateChangeListener(stateUpdated);
+	gapi.hangout.addParticipantsListener(participantsUpdated);
 
-    // Populate with ourselves initially
-    participantsUpdated();
+	// Populate with ourselves initially
+	gapi.hangout.onApiReady.add(participantsUpdated);
+    }
 }
+
+(function() {
+  if (gapi && gapi.hangout) {
+
+    var initHangout = function(apiInitEvent) {
+      if (apiInitEvent.isApiReady) {
+        prepareAppDOM();
+
+        gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
+          updateLocalDataState(stateChangeEvent.state,
+                               stateChangeEvent.metadata);
+        });
+        gapi.hangout.onParticipantsChanged.add(function(partChangeEvent) {
+          updateLocalParticipantsData(partChangeEvent.participants);
+        });
+
+        if (!state_) {
+          var state = gapi.hangout.data.getState();
+          var metadata = gapi.hangout.data.getStateMetadata();
+          if (state && metadata) {
+            updateLocalDataState(state, metadata);
+          }
+        }
+        if (!participants_) {
+          var initParticipants = gapi.hangout.getParticipants();
+          if (initParticipants) {
+            updateLocalParticipantsData(initParticipants);
+          }
+        }
+
+        gapi.hangout.onApiReady.remove(initHangout);
+      }
+    };
+
+    gapi.hangout.onApiReady.add(initHangout);
+  }
+})();
 
 // Note that the hangouts object is not set up until the gadget loads
 gadgets.util.registerOnLoadHandler(init);
