@@ -6,6 +6,7 @@ var timeout = null;
 var isDead = false;
 var liveMafia = 0;
 var _state = {};
+var gameStarted = false;
 
 // global variable keys
 var globalURL = "http://ec2-174-129-51-197.compute-1.amazonaws.com/";
@@ -15,6 +16,7 @@ var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
 var nameToIDMapKey = "nameToID";
+var gameStarted = "gameStarted";
 
 // TODO: Take out all junk calls
 
@@ -359,7 +361,8 @@ function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
 
     _state = delta.state;
-    if (delta.addedKeys.length > 0 && "gameID" == delta.addedKeys[0].key) { // Starting a new game, ask for our role
+    if (delta.state["gameStarted"] == "YES" && !gameStarted) { // Starting a new game, ask for our role
+	gameStarted = true;
 	console.log("Starting new game");
 	askForRole();
 	addSelfToReverseMap();
@@ -402,12 +405,12 @@ function startClick() {
 	url: putURL,
 	success: function() {
 		   console.log("Starting new game with game ID: ", newGameID);
-		   gapi.hangout.data.submitDelta( { "gameID" : newGameID
+		   gapi.hangout.data.submitDelta( { "gameStarted" : "YES"
 						  });
 	},
 	error: function() {
 		   console.log("Starting new game with game ID: ", newGameID);
-		   gapi.hangout.data.submitDelta( { "gameID" : newGameID
+		   gapi.hangout.data.submitDelta( { "gameStarted" : "YES"
 						  });
 	},				     
     });
