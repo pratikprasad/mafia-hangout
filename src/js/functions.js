@@ -352,11 +352,11 @@ function addSelfToReverseMap() {
 function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
 
-    if ((gameIDKey in delta) && (!(gameIDKey in _state))) { // Starting a new game, ask for our role
+    if ((gameIDKey in delta.state) && (!(gameIDKey in _state))) { // Starting a new game, ask for our role
 	_state = delta.state;
 	askForRole();
 	addSelfToReverseMap();
-    }
+    } 
 
     _state = delta.state;
 
