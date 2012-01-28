@@ -47,6 +47,7 @@ function findDeadPerson(dict) {
   @param newTime A string containing the new time, either "Day" or "Night"
 */
 function changeAVStatusForNewTime(newTime) {
+    console.log("Changing status for participant: %@ with new time: %@", gapi.hangout.getParticipantId(), newTime);
     var villagerEnable;
     if (newTime == "Day")
 	villagerEnable = true;
@@ -80,7 +81,7 @@ function voteForUser(participantID) {
     /// Update the voting list 
     /////////////////////////////////////////////////
     var votingList = JSON.Parse(gapi.hangout.data.getState()[votingListKey]);
-    if (participantID in votingList) { // TODO: Does this work?
+    if (participantID in votingList) { 
 	count = votingList[key];
 	votingList[key] = count + 1;
     } else {
@@ -108,8 +109,10 @@ function voteForUser(participantID) {
     // Push the dead list if necessary
     /////////////////////////////////////////////////
     if (newVoteCount == votesNeeded) {
+	console.log("Number of votes needed to kill reached by participant: %@ with vote number: %d", gapi.hangout.getParticipantId(), newVoteCount);
 	var deadParticipant = findDeadPerson(votingList);
 	deadList.push(deadParticipant);
+	console.log("New dead list: %@", deadList);
 	newVoteCount = 0;
 	deadListStringified = JSON.stringify(deadList);
 	gapi.hangout.data.submitDelta( { "deadList": deadListStringified
@@ -119,6 +122,7 @@ function voteForUser(participantID) {
     ///////////////////////////////////////
     /// Always update the new vote count 
     ///////////////////////////////////////
+    console.log("Participant: %@ pushing new vote count: %d", gapi.hangout.getParticipantId(), newVoteVount);
     gapi.hangout.data.submitDelta( { "voteCount" : newVoteCount,
 					   });				     
 	   
