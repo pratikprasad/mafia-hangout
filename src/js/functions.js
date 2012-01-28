@@ -97,11 +97,11 @@ function askForRole() {
 	url: getURL,
 	success: function(data) {
 	    console.log("Received role:", data);
-	    role = data;
+	    participantRole = data;
 	}, 
 	error: function(error) {
 	    console.log("Defaulting to villager");
-	    role = "Villager";
+	    participantRole = "Villager";
 	}});
 }
 
