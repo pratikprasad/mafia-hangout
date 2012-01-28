@@ -188,7 +188,10 @@ function voteForSelfToDie() {
  Stops the timeout function.
 */
 function stopTimer() {
-    clearTimeout(timeout);
+    if (timeout) {
+	clearTimeout(timeout);
+	timeout = null;
+    }
 }
 
 /** 
