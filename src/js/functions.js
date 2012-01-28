@@ -257,7 +257,7 @@ function voteForUser() {
     if (isDead)
 	return;
     
-    var participantName = $('#voteBox')).value
+    var participantName = $('#voteBox').value
     var reverseMap = getNameToIDMap();
     var participantID = reverseMap[participantName];
     console.log("Voting function entered");
