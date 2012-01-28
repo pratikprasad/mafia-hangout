@@ -68,7 +68,10 @@ function getAlive() {
 }
 
 function getVotingList() {
-    return JSON.Parse(_state[votingListKey]);
+    if (_state[votingListKey])
+	return JSON.Parse(_state[votingListKey]);
+    else
+	return {};
 }
 
 function getAliveList() {
