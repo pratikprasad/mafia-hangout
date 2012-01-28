@@ -71,8 +71,9 @@ function getAlive() {
 	var id = map[name];
 /*	if (!(id in deadList)) {	  
 	    aliveList.push(id);
-*/
+
 	}
+*/
     }
     
     return aliveList.length;
