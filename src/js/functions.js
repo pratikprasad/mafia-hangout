@@ -282,9 +282,7 @@ function voteForUser() {
     } else {
 	votingList[participantID] = 0;
     }
-    alert("here");
-    /*
-
+    
     ///////////////////////////////////////////////////
     /// Check number of votes
     //////////////////////////////////////////////////
@@ -302,6 +300,8 @@ function voteForUser() {
     else
 	newVoteCount = 1;
     console.log("New vote count: ", newVoteCount);
+    alert("here");
+    /*
 
     /////////////////////////////////////////////////
     // Push the dead list if necessary
