@@ -357,7 +357,7 @@ function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
 
     _state = delta.state;
-    if (gameIDKey in delta.addedKeys) { // Starting a new game, ask for our role
+    if ("gameID" in delta.addedKeys) { // Starting a new game, ask for our role
 	console.log("Starting new game");
 	askForRole();
 	addSelfToReverseMap();
