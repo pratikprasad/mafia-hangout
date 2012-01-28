@@ -11,14 +11,22 @@ var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
 
-//deadList = gapi.hangout.data.getState('deadList');
 
+/** 
+ Small wrapper function to get the number of mafia in the game, based on the algorithm for how many mafia should be spawned
+ @return Returns the number of mafia members in this game.
+*/
 function getNumberOfMafia() {
     var numParticipants = gapi.hangout.getEnabledParticipants().length;
     var numMafia = Math.floor(numParticipants / 3);
     return numMafia;
 }
 
+/**
+ Given a voting list, figures out the participant with the maximum number of votes in order to determine who the next person to die should be
+ @param dict The dictionary to iterate through
+ @return Returns the participant ID with the highest number of votes
+*/
 function findDeadPerson(dict) {
     var maxID = "";
     var maxCount = 0;
@@ -33,6 +41,32 @@ function findDeadPerson(dict) {
     return maxID;
 }
 
+
+/**
+  Changes the AV status for the new time.
+  @param newTime A string containing the new time, either "Day" or "Night"
+*/
+function changeAVStatusForNewTime(newTime) {
+    var villagerEnable;
+    if (newTime == "Day")
+	villagerEnable = true;
+    else
+	villagerEnable = false;
+
+    gapi.hangout.av.setMicrophoneMute(!villagerEnable);
+    gapi.hangout.av.setCameraMute(!villagerEnable);
+    for (participantID in gapi.hangout.getEnabledParticipants()) {
+	gapi.hangout.av.setParticipantAudioLevel(participantID, !villagerEnable);
+	gapi.hangout.av.setParticipantVisible(participantID, !villagerEnable);
+    }
+    
+    
+}
+
+/**
+ Client-side function that votes for a participant to be killed. Meant for both mafia and villagers.
+ @param participantID the participant ID to vote for.
+*/
 function voteForUser(participantID) {
 
     // Locals
