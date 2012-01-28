@@ -1,6 +1,6 @@
 
 // Client state
-var participantRole = "";
+var participantRole = "Villager";
 var timeOfDay = "";
 var timeout = null;
 var isDead = false;
@@ -36,7 +36,10 @@ function getParticipantID() {
 }
 
 function getDeadList() {
-    return _state[deadListKey];
+    if (_state[deadListKey])
+	return JSON.parse(_state[deadListKey]);
+    else
+	return []
 }
 
 function getNameToIDMap() {
