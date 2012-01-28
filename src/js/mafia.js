@@ -1,3 +1,6 @@
+var state_ = null;
+var participants_ = null;
+
 var contentDiv = document.getElementById('content_div');
 var participantsDiv = document.getElementById('participants_div');
 
@@ -48,15 +51,35 @@ function participantsUpdated() {
 // You should not set up the state object until you get your first callback.
 function init() {
     console.log("init");
-    
     if (gapi && gapi.hangout) {
+	var initHangout = function(apiInitEvent) {
+	    if (apiInitEvent.isApiReady) {
+		prepareAppDOM();
+		
+		gapi.hangout.data.onStateChanged.add(stateChanged);
+		gapi.hangout.data.onStateChanged.add(stateUpdated);
+		gapi.hangout.addParticipantsListener(participantsUpdated);
+		
+		if (!state_) {
+		    var state = gapi.hangout.data.getState();
+		    var metadata = gapi.hangout.data.getStateMetadata();
+		    if (state && metadata) {
+			updateLocalDataState(state, metadata);
+		    }
+		}
+		if (!participants_) {
+		    var initParticipants = gapi.hangout.getParticipants();
+		    if (initParticipants) {
+			participantsUpdated();
+		    }
+		}
+		
+		gapi.hangout.onApiReady.remove(initHangout);
+	    }
+	};
 	
-	gapi.hangout.data.addStateChangeListener(stateChanged); // client state change listener
-	gapi.hangout.data.addStateChangeListener(stateUpdated);
-	gapi.hangout.addParticipantsListener(participantsUpdated);
-
-	// Populate with ourselves initially
-	gapi.hangout.onApiReady.add(participantsUpdated);
+	gapi.hangout.onApiReady.add(initHangout);
+	
     }
 }
 
