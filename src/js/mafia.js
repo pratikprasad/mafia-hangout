@@ -41,10 +41,6 @@ function participantsUpdated(participantsArray) {
    participantsDiv.innerHTML = "Participants: " + participantList;
 }
 
-function listParticipants(participantsArray) {
-
-    
-}
 
 // Sets up callbacks for state change
 // You should not set up the state object until you get your first callback.
