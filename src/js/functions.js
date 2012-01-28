@@ -92,7 +92,7 @@ function askForRole() {
     var gameID = getGameID();
     console.log("asking server for role with game ID: ", gameID);
     var getURL = globalURL + "addPlayer/" + gameID + "/" + getParticipantID();
-    $.ajax(
+    $.ajax({
 	type: 'GET',
 	url: getURL,
 	success: function(data) {
@@ -102,7 +102,7 @@ function askForRole() {
 	error: function(error) {
 	    console.log("Defaulting to villager");
 	    role = "Villager";
-	});
+	}});
 }
 
 /** 
