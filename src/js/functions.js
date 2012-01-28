@@ -320,7 +320,7 @@ function voteForUser() {
     ///////////////////////////////////////
     console.log("Participant: ", getParticipantID(), " pushing new vote count: ", newVoteCount);
     stringVoteCount = "" + newVoteCount;
-    gapi.hangout.data.submitDelta( { voteCountKey : stringVoteCount
+    gapi.hangout.data.submitDelta( { "voteCount" : stringVoteCount
 					   });				     
     
     console.log("New vote count submitted");
@@ -397,7 +397,7 @@ function stateChanged(delta, metadata) {
 	voteCount = parseInt(_state[voteCountKey]);
     } 
 
-    console.log("vote count: ", voteCount)
+
     if (voteCount == 0) { // switched from day to night or night to day
 	if (timeOfDay == "Day") {
 	    console.log("Switched from day to night");
