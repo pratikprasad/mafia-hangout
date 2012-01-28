@@ -282,8 +282,6 @@ function voteForUser() {
     } else {
 	votingList[participantID] = 0;
     }
-    alert("here");
-    /*
 
     ///////////////////////////////////////////////////
     /// Check number of votes
@@ -297,6 +295,9 @@ function voteForUser() {
     } else { // Daytime
 	votesNeeded = getAlive();
     }
+    alert("here");
+    /*
+
     if (_state[voteCountKey])
 	newVoteCount = _state[voteCountKey] + 1;
     else
