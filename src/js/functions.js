@@ -14,7 +14,7 @@ var deadListKey = "deadList";
 var voteCountKey = "voteCount";
 var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
-var votingListKey = "votingList";
+svar votingListKey = "votingList";
 var nameToIDMapKey = "nameToID";
 
 // TODO: Take out all junk calls
@@ -147,14 +147,14 @@ function getNumberOfLiveMafia() {
 function findDeadPerson(dict) {
     var maxID = "";
     var maxCount = 0;
-
+    alert("dict " + dict);
     for (var i = 0; i < dict.length; i++) {
 	if (dict[i] > maxCount) {
 	    maxID = key;
 	    maxCount = dict[i];
 	}
     }
-
+    alert("maxId " + maxID):
     return maxID;
 }
 
@@ -277,6 +277,7 @@ function voteForUser() {
     // Locals
     var votesNeeded;
     var deadList = getDeadList();
+    alert(deadList);
     var newVoteCount;
     var deadListStringified;
 
@@ -285,10 +286,11 @@ function voteForUser() {
     /// Update the voting list 
     /////////////////////////////////////////////////
     var votingList = getVotingList();
+    alert(votingList)
     console.log("Adding vote for participant: ", participantID);
     if (participantID in votingList) { 
-	count = votingList[key];
-	votingList[key] = count + 1;
+	count = votingList[participantID];
+	votingList[participantID] = count + 1;
     } else {
 	votingList[participantID] = 0;
     }
@@ -323,6 +325,7 @@ function voteForUser() {
     if (newVoteCount == votesNeeded) {
         alert("newVoteCount == votesNeeded");
 	console.log("Number of votes needed to kill reached by participant: ", getParticipantID(), " with vote number: ", newVoteCount);
+        alert(votingList);
 	var deadParticipant = findDeadPerson(votingList);
 	console.log("Dead participant: ", deadParticipant);
 	deadList.push(deadParticipant);
