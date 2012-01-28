@@ -41,9 +41,9 @@ function getAll() {
     var displayNameArray = [];
     var part_list = gapi.hangout.getEnabledParticipants();
     console.log("Got participant list");
-    for (participant in part_list) {
-	console.log("participant: " + participant.person.displayName);
-	displayNameArray.push(participant.person.displayName);
+    for (var i = 0; i < part_list.length; i++) {
+	console.log("participant: " + part_list[i].person.displayName);
+	displayNameArray.push(part_list[i].person.displayName);
     }
     return displayNameArray;
 }
