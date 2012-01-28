@@ -356,13 +356,13 @@ function addSelfToReverseMap() {
 function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
 
-    if ((gameIDKey in delta.state) && (!(gameIDKey in _state))) { // Starting a new game, ask for our role
-	_state = delta.state;
+    _state = delta.state;
+    if (gameIDKey in delta.addedKeys) { // Starting a new game, ask for our role
+	console.log("Starting new game");
 	askForRole();
 	addSelfToReverseMap();
     } 
 
-    _state = delta.state;
 
     getNumberOfLiveMafia(); // Update number of life mafia
     
