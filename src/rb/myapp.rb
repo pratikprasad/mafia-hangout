@@ -7,16 +7,25 @@ class Mafia < Sinatra::Base
     "learn your javascript"
   end
 
-  put "/newGame/:gameID/:numPlayers" do
+  get "/newGame/:gameID/:numPlayers" do
     "adfadsfgit"
   end
 
-  get "/getRole/:gameID/:playerID" do 
-
+  get "/addPlayer/:gameID/:playerID" do
+    "waynee?"
   end
 
-  put "/:gameID/decrement"
-    gameID%21
+  get "/getRole/:gameID/:playerID" do 
+    "waynee?"
+  end
+
+# to fix this shit
+  get "/decrement/:gameID" do 
+    "asdf"
+  end
+
+  get "/numMafia/:gameID" do 
+    "adsf"    
   end
 
   run! if app_file == $0
