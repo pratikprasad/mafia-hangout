@@ -26,18 +26,15 @@ function getNewGameID() {
 }
 
 function getGameID() {
-    //return gapi.hangout.data.getState()[gameIDKey];
-    return "junk";
+    return gapi.hangout.data.getState()[gameIDKey];
 }
 
 function getParticipantID() {
-    //return gapi.hangout.getParticipantId();
-    return "1";
+    return gapi.hangout.getParticipantId();    
 }
 
 function getDeadList() {
-    return ["1", "2"];
-    //return gapi.hangout.data.getState()[deadListKey];
+    return gapi.hangout.data.getState()[deadListKey];
 }
 
 function getAll() {
