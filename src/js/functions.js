@@ -58,7 +58,7 @@ function getAll() {
 }
 
 function getAlive() {
-    var map = []
+    var name_map = []
 
     var participants = getAll();
     //var map = getNameToIDMap();
@@ -67,8 +67,9 @@ function getAlive() {
 
     
     for (var i = 0; i < participants.length; i++){
+	console.log(participants);
 	name = participants[i];
-	//var id = map[name];
+	//var id = name_map[name];
 /*	if (!(id in deadList)) {	  
 	    aliveList.push(id);
 
