@@ -289,7 +289,10 @@ function voteForUser(participantName) {
     } else { // Daytime
 	votesNeeded = getAlive();
     }
-    newVoteCount = _state[voteCountKey] + 1;
+    if (_state[voteCountKey])
+	newVoteCount = _state[voteCountKey] + 1;
+    else
+	newVoteCount = 0;
     console.log("New vote count: ", newVoteCount);
 
     /////////////////////////////////////////////////
