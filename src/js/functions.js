@@ -42,8 +42,7 @@ function getAll() {
 }
 
 function getVotingList() {
-    return {"1": 1, "2", 1};
-    //return JSON.Parse(gapi.hangout.data.getState()[votingListKey]);
+    return JSON.Parse(gapi.hangout.data.getState()[votingListKey]);
 }
 
 function getAliveList() {
@@ -176,7 +175,6 @@ function changeAVStatusForNewTime(newTime) {
 //////////////////////////
 /// IN-ROUND FUNCTIONS
 /////////////////////////
-v
 
 /**
  Client-side function that votes for a participant to be killed. Meant for both mafia and villagers.
