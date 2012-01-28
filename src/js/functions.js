@@ -40,7 +40,9 @@ function getDeadList() {
 function getAll() {
     var displayNameArray = [];
     var list = gapi.hangout.getEnabledParticipants();
+    console.log("Got particiapnt list");
     for (participant in list) {
+	console.log("participant: " + participant);
 	displayNameArray.push(participant.person.displayName);
     }
     return displayNameArray;

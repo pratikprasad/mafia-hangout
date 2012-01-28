@@ -34,6 +34,7 @@ function stateUpdated(delta, metadata) {
 }
 
 function participantsUpdated() {
+    console.log("Entering participants updated");
     var participantsArray = getAll();
     console.log("participants: " + participantsArray);
     participantList = "<ul \>";
@@ -60,9 +61,7 @@ function init() {
 		gapi.hangout.onEnabledParticipantsChanged.add(participantsUpdated);
 		
 		gapi.hangout.onApiReady.remove(initHangout);
-		console.log("1");
 		participantsUpdated();
-		console.log("2");
 	    }
 	};
 	
