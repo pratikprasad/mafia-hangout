@@ -6,7 +6,7 @@ var timeout = null;
 var isDead = false;
 var liveMafia = 0;
 var _state = {};
-var gameStarted = false;
+var gameInSession = false;
 
 // global variable keys
 var globalURL = "http://ec2-174-129-51-197.compute-1.amazonaws.com/";
@@ -16,7 +16,6 @@ var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
 var nameToIDMapKey = "nameToID";
-var gameStarted = "gameStarted";
 
 // TODO: Take out all junk calls
 
@@ -360,8 +359,8 @@ function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
 
     _state = delta.state;
-    if (delta.state["gameStarted"] == "YES" && !gameStarted) { // Starting a new game, ask for our role
-	gameStarted = true;
+    if (delta.state["gameStarted"] == "YES" && !gameInSession) { // Starting a new game, ask for our role
+	gameInSession = true;
 	console.log("Starting new game");
 	askForRole();
 	addSelfToReverseMap();
