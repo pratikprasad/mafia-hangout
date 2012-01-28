@@ -25,11 +25,14 @@
 		<option value="1">Value 1</option>
 	</select>
 
-	<input type=button value="Vote" id="butReset" onClick="inputVote()">
+	<input type=button value="Vote" id="voteButton" onClick="inputVote()">
 	</div>
 
-        <div id="participants_div">
+        <div id="participantsList">
 	</div>
+
+
+        <input type=button value="Start Game" id="beginButton" onClick="startClick()">
     ]]>
   </Content>
 </Module>

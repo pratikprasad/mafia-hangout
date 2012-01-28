@@ -39,14 +39,14 @@ function participantsUpdated() {
     for (var i = 0; i < participantsArray.length; i++) {
 	var participant = participantsArray[i];
 	console.log("iterating through participant: ", participant);
-	participantList += "<li>";
+	participantList += "<div class='participants'> <li>";
 	participantList += participant;
-	participantList += "</li>";
+	participantList += "</li> </div>";
     }
     participantList += "</ul>";
     console.log("participant list HTML" + participantList);
-    $("#participants_div").empty();
-    $("#participants_div").append(participantList);
+    $("#participantsList").empty();
+    $("#participantsList").append(participantList);
 }
 
 
