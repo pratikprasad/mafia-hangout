@@ -154,7 +154,7 @@ function findDeadPerson(dict) {
 	    maxCount = dict[i];
 	}
     }
-    alert("maxId " + maxID):
+    alert("maxId " + maxID);
     return maxID;
 }
 
@@ -317,7 +317,7 @@ function voteForUser() {
 	newVoteCount = 1;
     }
     console.log("New vote count: ", newVoteCount);
-    alert("newvotecount = " + newVoteCount)
+    alert("newvotecount = " + newVoteCount);
     
     /////////////////////////////////////////////////
     // Push the dead list if necessary
