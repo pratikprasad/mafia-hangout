@@ -53,13 +53,13 @@ function init() {
     console.log("init");
     if (gapi && gapi.hangout) {
 	var initHangout = function(apiInitEvent) {
-	    console.log("entering initHangout 1");
+
 	    if (apiInitEvent.isApiReady) {
-		console.log("entering initHangout 2");
 		gapi.hangout.data.onStateChanged.add(stateChanged);
 		gapi.hangout.data.onStateChanged.add(stateUpdated);
 		gapi.hangout.addParticipantsListener(participantsUpdated);
 		
+		console.log("Getting to initHangout 1");
 		if (!state_) {
 		    var state = gapi.hangout.data.getState();
 		    var metadata = gapi.hangout.data.getStateMetadata();
@@ -67,12 +67,14 @@ function init() {
 			updateLocalDataState(state, metadata);
 		    }
 		}
+		console.log("Getting to initHangout 2");
 		if (!participants_) {
 		    var initParticipants = gapi.hangout.getParticipants();
 		    if (initParticipants) {
 			participantsUpdated();
 		    }
 		}
+		console.log("Getting to initHangout 3");
 		
 		gapi.hangout.onApiReady.remove(initHangout);
 	    }
