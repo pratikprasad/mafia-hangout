@@ -25,7 +25,7 @@
 		<option value="1">Value 1</option>
 	</select>
 	</div>
-	<input type=button value="Vote" id="voteButton" onClick="inputVote()">
+	<input type=button value="Vote" id="voteButton" onClick="voteForUser()">
 
         <div id="participantsList">
 	</div>

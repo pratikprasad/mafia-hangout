@@ -251,12 +251,13 @@ function changeAVStatusForNewTime(newTime) {
  Client-side function that votes for a participant to be killed. Meant for both mafia and villagers.
  @param participantName the participant name to vote for.
 */
-function voteForUser(participantName) {
+function voteForUser() {
 
     // sanity check
     if (isDead)
 	return;
     
+    var participantName = $('#voteBox')).value
     var reverseMap = getNameToIDMap();
     var participantID = reverseMap[participantName];
     console.log("Voting function entered");
