@@ -54,7 +54,6 @@ function init() {
     if (gapi && gapi.hangout) {
 	var initHangout = function(apiInitEvent) {
 	    if (apiInitEvent.isApiReady) {
-		prepareAppDOM();
 		
 		gapi.hangout.data.onStateChanged.add(stateChanged);
 		gapi.hangout.data.onStateChanged.add(stateUpdated);
