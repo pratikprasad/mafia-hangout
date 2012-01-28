@@ -263,13 +263,14 @@ function voteForUser() {
     var participantID = reverseMap[participantName];
     console.log("Voting function entered");
     alert("here");
-/*
+
     // Locals
     var votesNeeded;
     var deadList = getDeadList();
     var newVoteCount;
     var deadListStringified;
 
+    /*
     //////////////////////////////////////////////////
     /// Update the voting list 
     /////////////////////////////////////////////////
