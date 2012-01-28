@@ -14,12 +14,16 @@ class Player
 end
 
 class Game
+
+  attr_reader :numMafia
+
   def initialize(gameID, numPlayers)
     @id = gameID
     @numPlayers = numPlayers
     @players = []
     @roles = []
-    @numMafia = (numPlayers.size.to_f)*(3.0/10.0).to_i
+    @numMafia = (numPlayers.size.to_f)*(3.0/10.0)
+    @numMafia = numMafia.to_i
     @numMafia.times{
       @roles << "mafia"
     }
