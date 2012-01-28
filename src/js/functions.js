@@ -13,7 +13,7 @@ var voteCountKey = "voteCount";
 var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
-
+var nameToIDMapKey = "nameToID";
 
 // TODO: Take out all junk calls
 
@@ -37,6 +37,10 @@ function getDeadList() {
     return gapi.hangout.data.getState()[deadListKey];
 }
 
+function getNameToIDMap() {
+    return JSON.parse(gapi.hangout.data.getState()[nameToIDMapKey]);
+}
+
 function getAll() {
     var displayNameArray = [];
     var part_list = gapi.hangout.getEnabledParticipants();
@@ -44,6 +48,20 @@ function getAll() {
 	displayNameArray.push(part_list[i].person.displayName);
     }
     return displayNameArray;
+}
+
+function getAlive() {
+    var participants = getAll();
+    var map = getNameToIDMap();
+    var deadList = getDeadList();
+    var aliveList = [];
+    for (name in participants) {
+	var id = map[name];
+	if !(id in deadList) {
+	    aliveList.push(id);
+	}
+    }
+    return aliveList.length;
 }
 
 function getVotingList() {
@@ -217,6 +235,8 @@ function voteForUser(participantID) {
     // sanity check
     if (isDead)
 	return;
+    
+    console.log("Voting function entered");
 
     // Locals
     var votesNeeded;
@@ -228,6 +248,7 @@ function voteForUser(participantID) {
     /// Update the voting list 
     /////////////////////////////////////////////////
     var votingList = getVotingList();
+    console.log("Adding vote for participant: ", participantID);
     if (participantID in votingList) { 
 	count = votingList[key];
 	votingList[key] = count + 1;
@@ -246,9 +267,10 @@ function voteForUser(participantID) {
 	} 
 	votesNeeded = liveMafia;
     } else { // Daytime
-	votesNeeded = getAll().length; // TODO: This needs to be # of live people, not all
+	votesNeeded = getAlive();
     }
     newVoteCount = gapi.hangout.data.getState()[voteCountKey] + 1;
+    console.log("New vote count: ", newVoteCount);
 
     /////////////////////////////////////////////////
     // Push the dead list if necessary
@@ -256,6 +278,7 @@ function voteForUser(participantID) {
     if (newVoteCount == votesNeeded) {
 	console.log("Number of votes needed to kill reached by participant: ", getParticipantID(), " with vote number: ", newVoteCount);
 	var deadParticipant = findDeadPerson(votingList);
+	console.log("Dead participant: ", deadParticipant);
 	deadList.push(deadParticipant);
 	console.log("New dead list: ", deadList);
 	newVoteCount = 0;
@@ -298,6 +321,19 @@ function updateSelectionBox() {
 }
 
 
+/**
+ The caller adds its own participant ID and name to the global reverse map
+*/
+function addSelfToReverseMap() {
+    console.log("Adding participant ID: ", getParticipantID(), "to reverse map");
+    var reverseMap = getNameToIDMap();
+    var participant = gapi.hangout.getParticipantById(getParticipantID());
+    reverseMap[participant.person.name] = getParticipantID();
+    var reverseMapStringified = JSON.stringify(reverseMap);
+    gapi.hangout.data.submitDelta( { nameToIDMapKey : reverseMapStringified
+					       });	
+}
+
 
 /////////////////////////////
 // Observer functions 
@@ -330,6 +366,7 @@ function stateChanged(delta, metadata) {
 
     if (gameIDKey in delta) { // Starting a new game, ask for our role
 	askForRole();
+	addSelfToReverseMap();
     }
 }
 
