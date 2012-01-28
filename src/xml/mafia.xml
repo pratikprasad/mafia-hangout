@@ -20,8 +20,6 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js">
         </script>
 
-        <script type="text/javascript" src="//www.google.com/jsapi"></script>
-
 	<div id="playerRole"/>
 	<select id="voteBox">
 		<option value="1">Value 1</option>
