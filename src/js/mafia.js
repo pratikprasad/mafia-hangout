@@ -35,13 +35,15 @@ function participantsUpdated() {
     console.log("Entering participants updated");
     var participantsArray = getAll();
     console.log("participants: " + participantsArray);
-    participantList = "<ul \>";
-    for (participant in participantsArray) {
-       participantList += "<li />";
-       participantList += participant.person.displayName;
-       participantList += "</li>";
+    participantList = "<ul>";
+    for (var i = 0; i < participantsArray.length; i++) {
+	var participant = participantsArray[i];
+	participantList += "<li>";
+	participantList += participant.person.displayName;
+	participantList += "</li>";
     }
     participantList += "</ul>";
+    console.log("participant list HTML" + participantList);
     $("#participants_div").innerHTML = "Participants: " + participantList;
 }
 
