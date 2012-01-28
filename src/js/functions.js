@@ -311,7 +311,7 @@ function stateChanged(delta, metadata) {
 
     // Check if we're dead right now
     if (getParticipantID() in getDeadList()) {
-	console.log("user ", getParticipantID() " died");
+	console.log("user ", getParticipantID(), " died");
 	die(); 	// If so, time to die
 	// TODO: Call function to cross dead person off list on front-end
     }
