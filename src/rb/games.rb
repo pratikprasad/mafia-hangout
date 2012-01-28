@@ -1,7 +1,7 @@
 #game.rb
 
 class Player
-  attr_reader :id
+  attr_reader :id, :role
 
   def initialize(playerID)
     @id = playerID  
@@ -19,7 +19,8 @@ class Game
     @numPlayers = numPlayers
     @players = []
     @roles = []
-    (numPlayers.size.to_f)*(3.0/10.0).to_i.times{
+    @numMafia = (numPlayers.size.to_f)*(3.0/10.0).to_i
+    @numMafia.times{
       @roles << "mafia"
     }
     while @roles.size < numPlayers do 
@@ -34,11 +35,14 @@ class Game
 
   def addPlayer(player)
     @players << player
+    # assign first role from front of roles list
+    role = @roles.delete_at(0)
+    player.assign_role(role)
+    role
   end
 
-  # assign first role from front of roles list
-  def assign_role(player)
-    player.assign_role(@roles.delete_at(0))
+  def decrementNumMafia
+    @numMafia -= 1
+    @numMafia
   end
-
 end

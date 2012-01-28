@@ -14,32 +14,34 @@ class Mafia < Sinatra::Base
     "learn your javascript"
   end
 
-  get "/newGame/:gameID/:numPlayers" do |gameId, numPlayers|
+  get "/newGame/:gameID/:numPlayers" do |gameID, numPlayers|
     if !@games then 
       @games = {}
     end
-    @games[gameID] = Game.new(gameID,numPlayers)
-    @games[gameID].to_s
+    @games[gameID] = Game.new(gameID.to_i,numPlayers.to_i)
+    "Game created with ID #{gameID}"
   end
 
-  get "/addPlayer/:gameID/:playerID" do
+  get "/addPlayer/:gameID/:playerID" do |gameID, playerID|
     if game = @games[gameID] then
-
+      player = Player.new(playerID)
+      game.addPlayer(player).to_s
     else
-      "no such game"
+      "No such Game"
     end
   end
 
-  get "/getRole/:gameID/:playerID" do 
-    "waynee?"
+  get "/getRole/:gameID/:playerID" do |gameID, playerID|
+    
   end
 
-  get "/decrement/:gameID" do 
-    "asdf"
+  #decrement the amount of mafia members alive
+  get "/decrement/:gameID" do |gameID|
+    @games[gameID].decrementNumMafia().to_s
   end
 
-  get "/numMafia/:gameID" do 
-    "adsf"    
+  get "/numMafia/:gameID" do |gameID|
+    @games[gameID].numMafia().to_s
   end
 
   run! if app_file == $0
