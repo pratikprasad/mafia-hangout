@@ -65,7 +65,7 @@ function getAliveList() {
 */
 function askForRole() {
     var gameID = getGameID();
-    var getURL = globalURL + "getRole/" + gameID + "/" + getParticipantID();
+    var getURL = globalURL + "addPlayer/" + gameID + "/" + getParticipantID();
     $.get(getURL, function(data) {
 	console.log("Received role:", data);
 	role = data;

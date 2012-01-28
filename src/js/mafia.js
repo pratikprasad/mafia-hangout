@@ -32,16 +32,28 @@ function stateUpdated(delta, metadata) {
 
 function participantsUpdated(participantsArray) {
    console.log("participants: " + participantsArray);
-   participantsDiv.innerHTML = "Participants: " + participantsArray.length;
+   participantList = "";
+   for (participant in participantsArray) {
+	participantList += "<li />";
+	participantList += participant.person.displayName;
+	participantList += "</li>";
+   }
+   participantsDiv.innerHTML = "Participants: " + participantList;
+}
+
+function listParticipants(participantsArray) {
+
+    
 }
 
 // Sets up callbacks for state change
 // You should not set up the state object until you get your first callback.
 function init() {
-   console.log("init");
-
-   gapi.hangout.data.addStateChangeListener(stateUpdated);
-   gapi.hangout.addParticipantsListener(participantsUpdated);
+    console.log("init");
+    
+    gapi.hangout.data.addStateChangeListener(stateChanged); // client state change listener
+    gapi.hangout.data.addStateChangeListener(stateUpdated);
+    gapi.hangout.addParticipantsListener(participantsUpdated);
 }
 
 // Note that the hangouts object is not set up until the gadget loads
