@@ -314,7 +314,8 @@ function voteForUser(participantName) {
     /// Always update the new vote count 
     ///////////////////////////////////////
     console.log("Participant: ", getParticipantID(), " pushing new vote count: ", newVoteCount);
-    gapi.hangout.data.submitDelta( { voteCountKey : newVoteCount
+    stringVoteCount = "" + newVoteCount;
+    gapi.hangout.data.submitDelta( { voteCountKey : stringVoteCount
 					   });				     
     
     // Post method cleanup
