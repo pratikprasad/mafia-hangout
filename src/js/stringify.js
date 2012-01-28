@@ -9,7 +9,7 @@ function buttonClicked() {
    console.log("Button clicked");
    console.log(gapi.hangout.data.getState()['count']);
    var value = {};
-	value.count = 0;
+   value.count = 0;
    if (gapi.hangout.data.getState()['count']) {
        value = JSON.parse(gapi.hangout.data.getState()['count']);
    }
@@ -17,8 +17,8 @@ function buttonClicked() {
    console.log("Value is " + value.count);
    // Send update to shared space.
    // NOTE:  Only ever send strings as values in the key-value pairs
-	value.count = value.count + 1;
-	var sub = JSON.stringify(value);
+   value.count = value.count + 1;
+   var sub = JSON.stringify(value);
    gapi.hangout.data.submitDelta({
        'count': sub
    });

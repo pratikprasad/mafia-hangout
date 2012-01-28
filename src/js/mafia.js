@@ -38,8 +38,6 @@ function participantsUpdated(participantsArray) {
 // Sets up callbacks for state change
 // You should not set up the state object until you get your first callback.
 function init() {
-
-
    console.log("init");
 
    gapi.hangout.data.addStateChangeListener(stateUpdated);
