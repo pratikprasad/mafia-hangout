@@ -284,7 +284,7 @@ function voteForUser(participantID) {
 	console.log("New dead list: ", deadList);
 	newVoteCount = 0;
 	deadListStringified = JSON.stringify(deadList);
-	gapi.hangout.data.submitDelta( { deadListKey: deadListStringified
+	gapi.hangout.data.setValue( { deadListKey: deadListStringified
 				       });
     }
 
@@ -292,7 +292,7 @@ function voteForUser(participantID) {
     /// Always update the new vote count 
     ///////////////////////////////////////
     console.log("Participant: ", getParticipantID(), " pushing new vote count: ", newVoteVount);
-    gapi.hangout.data.submitDelta( { voteCountKey : newVoteCount
+    gapi.hangout.data.setValue( { voteCountKey : newVoteCount
 					   });				     
     
     // Post method cleanup
@@ -331,7 +331,7 @@ function addSelfToReverseMap() {
     var participant = gapi.hangout.getParticipantById(getParticipantID());
     reverseMap[participant.person.name] = getParticipantID();
     var reverseMapStringified = JSON.stringify(reverseMap);
-    gapi.hangout.data.submitDelta( { nameToIDMapKey : reverseMapStringified
+    gapi.hangout.data.setValue( { nameToIDMapKey : reverseMapStringified
 					       });	
 }
 
@@ -382,7 +382,7 @@ function startClick() {
 	console.log("Successful new game response from server");
 	    if (getGameID() == null) {
 		console.log("Starting new game with game ID: ", newGameID);
-		gapi.hangout.data.submitDelta( { gameIDKey : newGameID
+		gapi.hangout.data.setValue( { gameIDKey : newGameID
 					       });				     
 
 	    } else {
