@@ -35,15 +35,15 @@ function stateUpdated(delta, metadata) {
 
 function participantsUpdated() {
     var participantsArray = getAll();
-   console.log("participants: " + participantsArray);
-   participantList = "<ul \>";
-   for (participant in participantsArray) {
-	participantList += "<li />";
-	participantList += participant.person.displayName;
-	participantList += "</li>";
-   }
+    console.log("participants: " + participantsArray);
+    participantList = "<ul \>";
+    for (participant in participantsArray) {
+       participantList += "<li />";
+       participantList += participant.person.displayName;
+       participantList += "</li>";
+    }
     participantList += "</ul>";
-   participantsDiv.innerHTML = "Participants: " + participantList;
+    participantsDiv.innerHTML = "Participants: " + participantList;
 }
 
 
@@ -60,12 +60,13 @@ function init() {
 		gapi.hangout.onEnabledParticipantsChanged.add(participantsUpdated);
 		
 		gapi.hangout.onApiReady.remove(initHangout);
+		console.log("1");
 		participantsUpdated();
+		console.log("2");
 	    }
 	};
 	
 	gapi.hangout.onApiReady.add(initHangout);
-	
     }
 }
 
