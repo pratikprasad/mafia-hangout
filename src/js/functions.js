@@ -252,17 +252,18 @@ function changeAVStatusForNewTime(newTime) {
  @param participantName the participant name to vote for.
 */
 function voteForUser() {
-/*
+
     console.log("entering");
     // sanity check
-    if (isDead)
-	return;
+   // if (isDead)
+//	return;
     
     var participantName = $('#voteBox').value
     var reverseMap = getNameToIDMap();
     var participantID = reverseMap[participantName];
     console.log("Voting function entered");
-
+    alert("here");
+/*
     // Locals
     var votesNeeded;
     var deadList = getDeadList();
