@@ -33,7 +33,7 @@ class Mafia < Sinatra::Base
   get "/newGame/:gameID/:numPlayers" do |gameID, numPlayers|
     
     game = Game.new(gameID.to_i,numPlayers.to_i)
-    setGame(game)
+    setGame(gameID, game)
     "Game created with ID #{gameID}"
   end
 
