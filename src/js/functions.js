@@ -169,8 +169,8 @@ function changeTime(newTime) {
 	return;
     if (participantRole == "Villager") {
 	changeAVStatusForNewTime(newTime);
-	if (newTime == "Day")
-	    timeout = setTimeout("voteForSelfToDie()", 60000);
+//	if (newTime == "Day")
+//	    timeout = setTimeout("voteForSelfToDie()", 60000);
     }
     getNumberOfLiveMafia();
     timeOfDay = newTime;
@@ -323,9 +323,8 @@ function voteForUser(participantName) {
     
     console.log("New vote count submitted");
     // Post method cleanup
-    stopTimer();
+    //stopTimer();
 	   
-
 }
 
 
