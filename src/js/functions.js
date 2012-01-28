@@ -252,7 +252,7 @@ function changeAVStatusForNewTime(newTime) {
  @param participantName the participant name to vote for.
 */
 function voteForUser() {
-
+/*
     console.log("entering");
     // sanity check
     if (isDead)
@@ -325,7 +325,7 @@ function voteForUser() {
     
     console.log("New vote count submitted");
     // Post method cleanup
-    //stopTimer();
+    //stopTimer();*/
 }
 
 
