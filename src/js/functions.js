@@ -29,8 +29,7 @@ function getNewGameID() {
 }
 
 function getGameID() {
-    console.log("state: ", _state);
-    return _state["gameID"];
+    return gapi.hangout.getHangoutId();
 }
 
 function getParticipantID() {
