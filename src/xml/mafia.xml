@@ -21,17 +21,17 @@
 	</script>
 
 
-	<div id="playerRole"/>
+	<div id="playerRole">
 	<select id="voteBox">
 		<option value="1">Value 1</option>
 	</select>
 	</div>
-	<input type=button value="Vote" id="voteButton" onClick="voteForUser()">
+	<input type="button" value="Vote" id="voteButton" onClick="voteForUser();" />
 
         <div id="participantsList">
 	</div>
 
-        <input type=button value="Start Game" id="beginButton" onClick="startClick()">
+        <input type="button" value="Start Game" id="beginButton" onClick="startClick();"/>
     ]]>
   </Content>
 </Module>
