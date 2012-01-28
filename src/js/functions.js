@@ -59,7 +59,8 @@ function getAll() {
 
 function getAlive() {
     var participants = getAll();
-    var map = getNameToIDMap();
+    //var map = getNameToIDMap();
+    var map = []
     var deadList = getDeadList();
     var aliveList = [];
     for (name in participants) {
