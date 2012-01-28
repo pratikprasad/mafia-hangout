@@ -149,9 +149,9 @@ function findDeadPerson(dict) {
     var maxCount = 0;
 
     for (var i = 0; i < dict.length; i++) {
-	if (dict[key] > maxCount) {
+	if (dict[i] > maxCount) {
 	    maxID = key;
-	    maxCount = dict[key];
+	    maxCount = dict[i];
 	}
     }
 
