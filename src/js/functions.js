@@ -253,6 +253,7 @@ function changeAVStatusForNewTime(newTime) {
 */
 function voteForUser() {
 
+    console.log("entering");
     // sanity check
     if (isDead)
 	return;
