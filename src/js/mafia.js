@@ -45,7 +45,7 @@ function participantsUpdated() {
     }
     participantList += "</ul>";
     console.log("participant list HTML" + participantList);
-    $("#participants_div").add(participantList);
+    $("#participants_div").append(participantList);
 }
 
 
