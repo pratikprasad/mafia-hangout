@@ -6,10 +6,6 @@ DIR = "/home/ec2-user/mafia-hangout/src/js"
 
 class Mafia < Sinatra::Base
   
-  def initialize
-    @games = {}
-  end
-
   get "/files/:file" do |filename|
     send_file File.join(DIR, filename)
   end
@@ -19,6 +15,9 @@ class Mafia < Sinatra::Base
   end
 
   get "/newGame/:gameID/:numPlayers" do
+    if !@games then 
+      @games = {}
+    end
     @games[gameID] = Game.new(gameID,numPlayers)
     @games[gameID].to_s
   end
