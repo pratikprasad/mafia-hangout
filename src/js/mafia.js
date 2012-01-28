@@ -32,12 +32,13 @@ function stateUpdated(delta, metadata) {
 
 function participantsUpdated(participantsArray) {
    console.log("participants: " + participantsArray);
-   participantList = "";
+   participantList = "<ul \>";
    for (participant in participantsArray) {
 	participantList += "<li />";
 	participantList += participant.person.displayName;
 	participantList += "</li>";
    }
+    participantList += "</ul>";
    participantsDiv.innerHTML = "Participants: " + participantList;
 }
 
