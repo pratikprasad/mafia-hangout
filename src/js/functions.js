@@ -95,6 +95,9 @@ function askForRole() {
     $.get(getURL, function(data) {
 	console.log("Received role:", data);
 	role = data;
+    }, function(error) {
+	console.log("Defaulting to villager");
+	role = "Villager";
     });
 }
 
@@ -398,5 +401,11 @@ function startClick() {
 	    } else {
 		console.log("Game already started with ID: ", getGameID());
 	    }
-	});
+    },
+	       function() {
+		   console.log("Starting new game with game ID: ", newGameID);
+		   gapi.hangout.data.submitDelta( { "gameID" : newGameID
+						  });				     
+
+	       });
 }
