@@ -311,7 +311,7 @@ function startClick() {
     var gameIDKey = getNewGameID();
     var putURL = globalURL + "newGame/" + gameIDKey + "/" + getAll().length;
 
-    jquery.get(putURL, function(){
+    jQuery.get(putURL, function(){
 	    if (getGameID() != null) {
 		gapi.hangout.data.submitDelta( { gameIDKey : newGameID
 					       });				     
