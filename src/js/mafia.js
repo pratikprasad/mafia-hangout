@@ -38,6 +38,7 @@ function participantsUpdated() {
     participantList = "<ul>";
     for (var i = 0; i < participantsArray.length; i++) {
 	var participant = participantsArray[i];
+	console.log("iterating through participant: ", participant.person.displayName);
 	participantList += "<li>";
 	participantList += participant.person.displayName;
 	participantList += "</li>";
