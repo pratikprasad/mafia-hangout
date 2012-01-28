@@ -14,7 +14,7 @@ var deadListKey = "deadList";
 var voteCountKey = "voteCount";
 var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
-svar votingListKey = "votingList";
+var votingListKey = "votingList";
 var nameToIDMapKey = "nameToID";
 
 // TODO: Take out all junk calls
