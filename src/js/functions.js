@@ -31,7 +31,7 @@ function getGameID() {
 }
 
 function getParticipantID() {
-    //return gapi.hangout.getparticipantId();
+    //return gapi.hangout.getParticipantId();
     return "1";
 }
 
@@ -61,6 +61,18 @@ function getAliveList() {
 }
 
 /** 
+  Requests the role for the current game ID from the server
+*/
+function askForRole() {
+    var gameID = getGameID();
+    var getURL = globalURL + "getRole/" + gameID + "/" + getParticipantID();
+    $.get(getURL, function(data) {
+	console.log("Received role:", data);
+	role = data;
+    });
+}
+
+/** 
  Small wrapper function to get the number of mafia in the game, based on the algorithm for how many mafia should be spawned
  @return Returns the number of mafia members in this game.
 */
@@ -77,9 +89,8 @@ function getNumberOfLiveMafia() {
     var gameID = getGameID();
     var getURL = globalURL + "numMafia/" + getGameID();
     $.get(getURL, function(data) {
-	console.log("Received data");
-	//console.log("Received number of live mafia:", data);
-	//liveMafia = parseInt(data);
+	console.log("Received number of live mafia:", data);
+	liveMafia = parseInt(data);
     });
 }
 
@@ -155,6 +166,20 @@ function die() {
 	       console.log("Decremented number of live mafia");
 	   });
     }
+}
+
+/**
+ Checks whether the win conditions have been satisfied. 
+ @return Returns "Mafia" if the win conditions have been satisfied for the mafia, "Villagers" if the mafia are all dead, null otherwise.
+*/
+function checkWin() {
+    
+    if (liveMafia > (getAll().length - liveMafia))
+	return "Mafia";
+    else if (liveMafia == 0) 
+	return "Villagers";
+    else
+	return null;
 }
 
 /**
@@ -271,6 +296,10 @@ function stateChanged(delta, metadata) {
 	} else {
 	    changeTime("Day");
 	}
+    }
+
+    if (gameIDKey in delta) { // Starting a new game, ask for our role
+	askForRole();
     }
 }
 
