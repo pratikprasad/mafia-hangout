@@ -345,12 +345,12 @@ function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
 
     if ((gameIDKey in delta) && (!(gameIDKey in _state))) { // Starting a new game, ask for our role
-	_state = delta;
+	_state = delta.state;
 	askForRole();
 	addSelfToReverseMap();
     }
 
-    _state = delta;
+    _state = delta.state;
 
     getNumberOfLiveMafia(); // Update number of life mafia
     
