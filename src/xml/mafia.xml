@@ -4,9 +4,9 @@
     <Require feature="rpc"/>
   </ModulePrefs>
   <Content type="html">
-    <![CDATA[     
-	<script src="http://sharedspacesgadgets.appspot.com/static/hangout.js">
-	</script>
+    <![CDATA[    
+
+      <script type="text/javascript" src="//hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=0.1"></script>
 
 	<script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/stringify.js">
 	</script>
