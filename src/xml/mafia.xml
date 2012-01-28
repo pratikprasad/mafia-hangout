@@ -17,7 +17,7 @@ Hello, Hangout!
 <input type=button value="Click Me!" id="butCount" onClick="buttonClicked()">
 <input type=button value="Reset" id="butReset" onClick="resetCounter()">
 
-<br><br/>
+<br></br>
 <select id="voteBox">
 	<option value="1">Value 1</option>
 </select>
