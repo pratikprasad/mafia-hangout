@@ -57,7 +57,8 @@ function getAlive() {
     var aliveList = [];
     for (name in participants) {
 	var id = map[name];
-	if !(id in deadList) {
+	if (id in deadList) {
+	} else {
 	    aliveList.push(id);
 	}
     }
