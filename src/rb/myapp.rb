@@ -1,11 +1,27 @@
 require 'rubygems'
 require 'sinatra/base'
 require './games'
+require 'pstore'
 
 DIR = "/home/ec2-user/mafia-hangout/src/js"
+STORE = "/home/ec2-user/mafia-hangout/store"
 
 class Mafia < Sinatra::Base
   
+  def getGame(id)
+    store = Pstore.new(STORE)
+    store.transaction{
+      store[id]
+    }
+  end
+
+  def setGame(id,game)
+    store = Pstore.new(STORE)
+    store.transaction{
+      store[id] = game
+    }
+  end
+
   get "/files/:file" do |filename|
     send_file File.join(DIR, filename)
   end
@@ -15,17 +31,18 @@ class Mafia < Sinatra::Base
   end
 
   get "/newGame/:gameID/:numPlayers" do |gameID, numPlayers|
-    if !@games then 
-      @games = {}
-    end
-    @games[gameID] = Game.new(gameID.to_i,numPlayers.to_i)
+    
+    game = Game.new(gameID.to_i,numPlayers.to_i)
+    setGame(game)
     "Game created with ID #{gameID}"
   end
 
   get "/addPlayer/:gameID/:playerID" do |gameID, playerID|
-    if game = @games[gameID] then
+    if game = getGame(gameID) then
       player = Player.new(playerID)
-      game.addPlayer(player).to_s
+      val = game.addPlayer(player).to_s
+      setGame(gameID,game)
+      val
     else
       "No such Game"
     end
@@ -37,11 +54,17 @@ class Mafia < Sinatra::Base
 
   #decrement the amount of mafia members alive
   get "/decrement/:gameID" do |gameID|
-    @games[gameID].decrementNumMafia().to_s
+    game = getGame(gameID)
+    val = game.decrementNumMafia().to_s
+    setGame(gameID,game)
+    val
   end
 
   get "/numMafia/:gameID" do |gameID|
-    @games[gameID].numMafia().to_s
+    game = getGame(gameID)
+    val = game.numMafia().to_s
+    setGame(gameID,game)
+    val
   end
 
   run! if app_file == $0
