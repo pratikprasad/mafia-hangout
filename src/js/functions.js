@@ -43,7 +43,9 @@ function getDeadList() {
 }
 
 function getNameToIDMap() {
-    return JSON.parse(_state[nameToIDMapKey]);
+    if (_state[nameToIDMapKey])
+	return JSON.parse(_state[nameToIDMapKey]);
+    else return [];
 }
 
 function getAll() {
