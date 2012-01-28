@@ -311,16 +311,11 @@ function startClick() {
     var gameIDKey = getNewGameID();
     var putURL = globalURL + "newGame/" + gameIDKey + "/" + getAll().length;
 
-    $.ajax({
-	type: 'GET',
-	url: putURL,
-	context: document.body,
-	success: function(){
+    jquery.get(putURL, function(){
 	    if (getGameID() != null) {
 		gapi.hangout.data.submitDelta( { gameIDKey : newGameID
 					       });				     
 
 	    }
-	}
-    });
+	});
 }
