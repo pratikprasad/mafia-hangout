@@ -67,14 +67,13 @@ function getAlive() {
 
     
     for (var i = 0; i < participants.length; i++){
-	console.log(participants);
 	var name = participants[i];
-	//var id = name_map[name];
-/*	if (!(id in deadList)) {	  
+	var id = name_map[name];
+	if (!(id in deadList)) {	  
 	    aliveList.push(id);
 
 	}
-*/
+
     }
     
     return aliveList.length;
