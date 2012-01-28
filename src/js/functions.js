@@ -22,7 +22,7 @@ var votingListKey = "votingList";
 ////////////////////
 
 function getNewGameID() {
-    return 1;
+    return "1";
 }
 
 function getGameID() {
