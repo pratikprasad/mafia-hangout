@@ -341,6 +341,12 @@ function addSelfToReverseMap() {
 ////////////////////////////
 function stateChanged(delta, metadata) {
     console.log("received update for state with delta: ", delta);
+
+    if (gameIDKey in delta) { // Starting a new game, ask for our role
+	askForRole();
+	addSelfToReverseMap();
+    }
+
     getNumberOfLiveMafia(); // Update number of life mafia
     
     // Update the selection box
@@ -365,10 +371,6 @@ function stateChanged(delta, metadata) {
 	}
     }
 
-    if (gameIDKey in delta) { // Starting a new game, ask for our role
-	askForRole();
-	addSelfToReverseMap();
-    }
 }
 
 
