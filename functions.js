@@ -1,7 +1,10 @@
 
-// Client variables
+// Client state
 var participantRole = "";
 var timeOfDay = "";
+var timeout = null;
+var isDead = false;
+var mafiaList = [];
 
 // global variable keys
 var deadListKey = "deadList";
@@ -10,7 +13,6 @@ var nightVoteNumberKey = "nightVoteNumber";
 var numberMafiaKey = "numMafia";
 var gameIDKey = "gameID";
 var votingListKey = "votingList";
-
 
 /** 
  Small wrapper function to get the number of mafia in the game, based on the algorithm for how many mafia should be spawned
@@ -41,6 +43,33 @@ function findDeadPerson(dict) {
     return maxID;
 }
 
+
+/**
+ Changes the time.
+ @param newTime a string containing the new time, either "Day" or "Night"
+*/
+function changeTime(newTime) {
+    if (participantRole == "Villager") {
+	changeAVStatusForNewTime(newTime);
+	if (newTime == "Day")
+	    timeout = setTimeout("voteForSelfToDie()", 60000);
+    }
+}
+
+/**
+ Timeout function. The user votes to kill themselves.
+*/
+function voteForSelfToDie() {
+    voteForUser(gapi.hangout.getParticipantId());
+    stopTimer();
+}
+
+/** 
+ Stops the timeout function.
+*/
+function stopTimer() {
+    clearTimeout(timeout);
+}
 
 /**
   Changes the AV status for the new time.
