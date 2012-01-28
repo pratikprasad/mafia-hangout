@@ -1,14 +1,6 @@
 var state_ = null;
 var participants_ = null;
 
-var contentDiv = null;
-var participantsDiv = null;
-
-
-$(document).ready(function() {
-    participantsDiv = document.getElementById("participants_div");
-    contentDiv = document.getElementById('content_div');
-});
 
 // Note that if you click the button several times in succession,
 // if the state update hasn't gone through, it will submit the same
@@ -50,7 +42,7 @@ function participantsUpdated() {
        participantList += "</li>";
     }
     participantList += "</ul>";
-    participantsDiv.innerHTML = "Participants: " + participantList;
+    $("#participants_div").innerHTML = "Participants: " + participantList;
 }
 
 
