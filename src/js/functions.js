@@ -147,13 +147,19 @@ function getNumberOfLiveMafia() {
 function findDeadPerson(dict) {
     var maxID = "";
     var maxCount = 0;
-    alert("dict " + dict);
+
+    for (var key in dict) {
+	alert("key: " + key);
+    }
+    /*
     for (var i = 0; i < dict.length; i++) {
 	if (dict[i] > maxCount) {
-	    maxID = key;
+	    maxID = ;
 	    maxCount = dict[i];
 	}
-    }
+    }*/
+
+    
     alert("maxId " + maxID);
     return maxID;
 }
@@ -277,7 +283,7 @@ function voteForUser() {
     // Locals
     var votesNeeded;
     var deadList = getDeadList();
-    alert(deadList);
+
     var newVoteCount;
     var deadListStringified;
 
@@ -286,7 +292,7 @@ function voteForUser() {
     /// Update the voting list 
     /////////////////////////////////////////////////
     var votingList = getVotingList();
-    alert(votingList)
+
     console.log("Adding vote for participant: ", participantID);
     if (participantID in votingList) { 
 	count = votingList[participantID];
@@ -305,7 +311,7 @@ function voteForUser() {
 	} 
 	votesNeeded = liveMafia;
     } else { // Daytime
-	alert("daytime");
+
 	votesNeeded = getAlive();
     }
 
@@ -317,15 +323,15 @@ function voteForUser() {
 	newVoteCount = 1;
     }
     console.log("New vote count: ", newVoteCount);
-    alert("newvotecount = " + newVoteCount);
+
     
     /////////////////////////////////////////////////
     // Push the dead list if necessary
     /////////////////////////////////////////////////
     if (newVoteCount == votesNeeded) {
-        alert("newVoteCount == votesNeeded");
+
 	console.log("Number of votes needed to kill reached by participant: ", getParticipantID(), " with vote number: ", newVoteCount);
-        alert(votingList);
+
 	var deadParticipant = findDeadPerson(votingList);
 	console.log("Dead participant: ", deadParticipant);
 	deadList.push(deadParticipant);
@@ -336,13 +342,15 @@ function voteForUser() {
 				       });
     }
 
-    ///////////////////////////////////////
-    /// Always update the new vote count 
-    ///////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    /// Always update the new vote count and new voting list
+    /////////////////////////////////////////////////////////////
     console.log("Participant: ", getParticipantID(), " pushing new vote count: ", newVoteCount);
     stringVoteCount = "" + newVoteCount;
-    gapi.hangout.data.submitDelta( { "voteCount" : stringVoteCount
-					   });				     
+    serializedVotingList = JSON.stringify(votingList);
+    gapi.hangout.data.submitDelta( { "voteCount" : stringVoteCount,
+				     "votingList" : serializedVotingList};
+					   );				     
     
     console.log("New vote count submitted");
     // Post method cleanup
