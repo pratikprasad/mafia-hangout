@@ -40,9 +40,7 @@ function getDeadList() {
 function getAll() {
     var displayNameArray = [];
     var part_list = gapi.hangout.getEnabledParticipants();
-    console.log("Got participant list");
     for (var i = 0; i < part_list.length; i++) {
-	console.log("participant: " + part_list[i].person.displayName);
 	displayNameArray.push(part_list[i].person.displayName);
     }
     return displayNameArray;
@@ -68,6 +66,7 @@ function getAliveList() {
 */
 function askForRole() {
     var gameID = getGameID();
+    console.log("asking server for role with game ID: ", gameID);
     var getURL = globalURL + "addPlayer/" + gameID + "/" + getParticipantID();
     $.get(getURL, function(data) {
 	console.log("Received role:", data);
@@ -279,14 +278,40 @@ function voteForUser(participantID) {
 }
 
 
+/**
+   Updates the selection box on the main screen with the necessary elements from the participant list
+*/
+function updateSelectionBox() {
+    console.log("Entering updateSelectionBox");
+    var participantsArray = getAll();
+    participantList = "<select id='voteBox'>";
+
+    for (var i = 0; i < participantsArray.length; i++) {
+	var participant = participantsArray[i];
+	console.log("iterating through participant: ", participant);
+	participantList += "<option value='" + participant + "'>" + participant + "</option>";
+    }
+    participantList += "</select>";
+    console.log("playerRole HTML: " + participantList);
+    $("#playerRole").empty();
+    $("#playerRole").append(participantList);
+}
+
+
+
 /////////////////////////////
 // Observer functions 
 ////////////////////////////
 function stateChanged(delta, metadata) {
+    console.log("received update for state with delta: ", delta);
     getNumberOfLiveMafia(); // Update number of life mafia
     
+    // Update the selection box
+    updateSelectionBox();
+
     // Check if we're dead right now
     if (getParticipantID() in getDeadList()) {
+	console.log("user ", getParticipantID() " died");
 	die(); 	// If so, time to die
 	// TODO: Call function to cross dead person off list on front-end
     }
@@ -295,8 +320,10 @@ function stateChanged(delta, metadata) {
     
     if (voteCount == 0) { // switched from day to night or night to day
 	if (timeOfDay == "Day") {
+	    console.log("Switched from day to night");
 	    changeTime("Night");
 	} else {
+	    console.log("Switched from night to day");
 	    changeTime("Day");
 	}
     }
