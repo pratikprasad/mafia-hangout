@@ -27,6 +27,7 @@ function getNewGameID() {
 }
 
 function getGameID() {
+    console.log("state: ", _state);
     return _state[gameIDKey];
 }
 
