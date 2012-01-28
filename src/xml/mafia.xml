@@ -27,14 +27,14 @@
 	</select>
 	</div>
 
-        <div id="beginButton" onCLick="startClick();">Vote</div>
+        <div id="beginButton" onCLick="startClick();">Start</div>
 	
 
         <div id="participantsList">
 	</div>
 
         <div id="voteButton" onClick="voteForUser();">
-          Start
+          Vote
 	</div>
  
     ]]>
