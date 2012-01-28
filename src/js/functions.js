@@ -65,15 +65,15 @@ function getAlive() {
     var deadList = getDeadList();
     var aliveList = [];
 
-    /**
-    for (name in participants) {
+    
+    for (var i = 0; i < participants.length; i++){
+	name = participants[i];
 	var id = map[name];
-	if (id in deadList) {
-	} else {
+	if (!(id in deadList)) {	  
 	    aliveList.push(id);
 	}
     }
-    */
+    
     return aliveList.length;
 }
 
