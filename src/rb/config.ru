@@ -1,2 +1,2 @@
 require './myapp'
-run MyApp
+run Mafia
