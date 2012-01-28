@@ -262,7 +262,7 @@ function voteForUser() {
     var reverseMap = getNameToIDMap();
     var participantID = reverseMap[participantName];
     console.log("Voting function entered");
-    alert("here");
+
 
     // Locals
     var votesNeeded;
@@ -270,7 +270,7 @@ function voteForUser() {
     var newVoteCount;
     var deadListStringified;
 
-    /*
+    
     //////////////////////////////////////////////////
     /// Update the voting list 
     /////////////////////////////////////////////////
@@ -282,7 +282,8 @@ function voteForUser() {
     } else {
 	votingList[participantID] = 0;
     }
-    
+    alert("here");
+    /*
 
     ///////////////////////////////////////////////////
     /// Check number of votes
