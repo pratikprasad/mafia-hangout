@@ -29,7 +29,7 @@ function stateUpdated(delta, metadata) {
    if (!gapi.hangout.data.getState()['count']) {
        contentDiv.innerHTML = "The count is 0."
    } else {
-       contentDiv.innerHTML = "The count is " + gapi.hangout.data.getState()['count'] + ".";
+       contentDiv.innerHTML = "The count is " + JSON.parse(gapi.hangout.data.getState()['count']).count + ".";
    }
 }
 
