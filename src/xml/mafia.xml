@@ -5,7 +5,7 @@
   </ModulePrefs>
   <Content type="html">
     <![CDATA[     
-<script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/mafia.js"/>
+<script type="text/javascript" src="https://raw.github.com/pratikprasad/mafia-hangout/master/src/js/mafia.js"/></script>
     ]]>
   </Content>
 </Module>
