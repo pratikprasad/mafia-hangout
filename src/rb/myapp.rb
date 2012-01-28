@@ -14,7 +14,7 @@ class Mafia < Sinatra::Base
     "learn your javascript"
   end
 
-  get "/newGame/:gameID/:numPlayers" do
+  get "/newGame/:gameID/:numPlayers" do |gameId, numPlayers|
     if !@games then 
       @games = {}
     end
