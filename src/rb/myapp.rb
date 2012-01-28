@@ -9,14 +9,14 @@ STORE = "/home/ec2-user/mafia-hangout/store"
 class Mafia < Sinatra::Base
   
   def getGame(id)
-    store = Pstore.new(STORE)
+    store = PStore.new(STORE)
     store.transaction{
       store[id]
     }
   end
 
   def setGame(id,game)
-    store = Pstore.new(STORE)
+    store = PStore.new(STORE)
     store.transaction{
       store[id] = game
     }
@@ -33,7 +33,7 @@ class Mafia < Sinatra::Base
   get "/newGame/:gameID/:numPlayers" do |gameID, numPlayers|
     
     game = Game.new(gameID.to_i,numPlayers.to_i)
-    setGame(game)
+    setGame(gameID, game)
     "Game created with ID #{gameID}"
   end
 

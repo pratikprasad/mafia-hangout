@@ -41,7 +41,7 @@ class Game
     @players << player
     # assign first role from front of roles list
     role = @roles.delete_at(0)
-    player.assign_role(role)
+    player.addRole(role)
     role
   end
 
