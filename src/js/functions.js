@@ -289,13 +289,14 @@ function voteForUser() {
     if (timeOfDay == "Night") { 
 	if (participantRole != "Mafia") {
 	    // TODO: Throw an error of some kind
-	    return;
+	    return false;
 	} 
 	votesNeeded = liveMafia;
     } else { // Daytime
+	alert("here");
 	votesNeeded = getAlive();
     }
-    alert("here");
+
     /*
 
     if (_state[voteCountKey])
